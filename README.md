@@ -9,6 +9,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Tests](https://github.com/SabirovSR/ASCargoTransportation/workflows/Tests/badge.svg)
 
 **Современное веб-приложение для управления маршрутами судоперевозок и отправками**
 
@@ -164,6 +165,15 @@ pip install -r requirements.txt
 pip install aiosqlite  # Для тестирования с SQLite
 pytest
 ```
+
+### CI/CD
+
+Проект использует **GitHub Actions** для автоматического тестирования:
+- ✅ Запуск backend тестов с PostgreSQL
+- ✅ Проверка типов и сборка frontend
+- ✅ Тестовая сборка Docker образов
+
+Тесты автоматически запускаются при каждом push и pull request.
 
 ## 📁 Структура проекта
 
