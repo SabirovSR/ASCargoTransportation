@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { Ship, AlertCircle } from 'lucide-react'
 import { useLogin } from '../hooks/useAuth'
 import { LoadingSpinner } from '../components'
+import { getErrorMessage } from '../utils/errors'
 
 const loginSchema = z.object({
   email: z.string().email('Неверный адрес электронной почты'),
@@ -28,7 +29,7 @@ export default function LoginPage() {
   }
 
   const errorMessage = loginMutation.error
-    ? (loginMutation.error as any)?.response?.data?.error?.message || 'Ошибка входа'
+    ? getErrorMessage(loginMutation.error, 'Ошибка входа')
     : null
 
   return (

@@ -6,6 +6,7 @@ import { ArrowLeft, Plus, Trash2, GripVertical } from 'lucide-react'
 import { useCreateRoute } from '../hooks/useRoutes'
 import { LoadingSpinner } from '../components'
 import { StopType } from '../api/types'
+import { getErrorMessage } from '../utils/errors'
 
 const stopSchema = z.object({
   seq: z.number().min(1),
@@ -81,7 +82,7 @@ export default function NewRoutePage() {
   }
 
   const errorMessage = createMutation.error
-    ? (createMutation.error as any)?.response?.data?.error?.message || 'Не удалось создать маршрут'
+    ? getErrorMessage(createMutation.error, 'Не удалось создать маршрут')
     : null
 
   return (

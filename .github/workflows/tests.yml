@@ -72,13 +72,13 @@ jobs:
       working-directory: apps/frontend
       run: npm ci
 
-    - name: Type check
-      working-directory: apps/frontend
-      run: npm run build
-
     - name: Lint
       working-directory: apps/frontend
-      run: npm run lint --if-present || echo "No lint script found, skipping..."
+      run: npm run lint
+
+    - name: Type check and build
+      working-directory: apps/frontend
+      run: npm run build
 
   docker-build:
     name: Docker Build Test
