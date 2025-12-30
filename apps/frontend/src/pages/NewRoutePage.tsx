@@ -10,22 +10,22 @@ import { StopType } from '../api/types'
 const stopSchema = z.object({
   seq: z.number().min(1),
   type: z.enum(['origin', 'stop', 'destination'] as const),
-  address: z.string().min(1, 'Address is required'),
+  address: z.string().min(1, 'Адрес обязателен'),
   contact_name: z.string().optional().nullable(),
   contact_phone: z.string().optional().nullable(),
 })
 
 const routeSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
+  title: z.string().min(1, 'Название обязательно'),
   route_number: z.string().optional().nullable(),
   planned_departure_at: z.string().optional().nullable(),
   comment: z.string().optional().nullable(),
-  stops: z.array(stopSchema).min(2, 'At least 2 stops are required'),
+  stops: z.array(stopSchema).min(2, 'Требуется минимум 2 остановки'),
 }).refine((data) => {
   const types = data.stops.map(s => s.type)
   return types.includes('origin') && types.includes('destination')
 }, {
-  message: 'Route must have origin and destination stops',
+  message: 'Маршрут должен иметь начальную и конечную остановки',
   path: ['stops'],
 })
 
@@ -81,7 +81,7 @@ export default function NewRoutePage() {
   }
 
   const errorMessage = createMutation.error
-    ? (createMutation.error as any)?.response?.data?.error?.message || 'Failed to create route'
+    ? (createMutation.error as any)?.response?.data?.error?.message || 'Не удалось создать маршрут'
     : null
 
   return (
@@ -90,7 +90,7 @@ export default function NewRoutePage() {
         <Link to="/routes" className="p-2 hover:bg-gray-100 rounded-lg">
           <ArrowLeft className="h-5 w-5" />
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900">New Route</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Новый маршрут</h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -102,15 +102,15 @@ export default function NewRoutePage() {
 
         {/* Basic Info */}
         <div className="card p-6 space-y-4">
-          <h2 className="text-lg font-semibold text-gray-900">Route Details</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Детали маршрута</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="label">Title *</label>
+              <label className="label">Название *</label>
               <input
                 {...register('title')}
                 className={`input ${errors.title ? 'input-error' : ''}`}
-                placeholder="Moscow - Saint Petersburg"
+                placeholder="Москва - Санкт-Петербург"
               />
               {errors.title && (
                 <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
@@ -118,18 +118,18 @@ export default function NewRoutePage() {
             </div>
 
             <div>
-              <label className="label">Route Number (optional)</label>
+              <label className="label">Номер маршрута (необязательно)</label>
               <input
                 {...register('route_number')}
                 className="input"
-                placeholder="Auto-generated if empty"
+                placeholder="Автоматически, если не указан"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="label">Planned Departure</label>
+              <label className="label">Планируемый выезд</label>
               <input
                 type="datetime-local"
                 {...register('planned_departure_at')}
@@ -139,12 +139,12 @@ export default function NewRoutePage() {
           </div>
 
           <div>
-            <label className="label">Comment</label>
+            <label className="label">Комментарий</label>
             <textarea
               {...register('comment')}
               rows={3}
               className="input"
-              placeholder="Additional notes..."
+              placeholder="Дополнительные заметки..."
             />
           </div>
         </div>
@@ -152,14 +152,14 @@ export default function NewRoutePage() {
         {/* Stops */}
         <div className="card p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Route Stops</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Остановки маршрута</h2>
             <button
               type="button"
               onClick={addIntermediateStop}
               className="btn-secondary btn-sm"
             >
               <Plus className="h-4 w-4 mr-1" />
-              Add Stop
+              Добавить остановку
             </button>
           </div>
 
@@ -179,23 +179,23 @@ export default function NewRoutePage() {
 
                 <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="label">Type</label>
+                    <label className="label">Тип</label>
                     <select
                       {...register(`stops.${index}.type`)}
                       className="input"
                     >
-                      <option value="origin">Origin</option>
-                      <option value="stop">Intermediate</option>
-                      <option value="destination">Destination</option>
+                      <option value="origin">Начало</option>
+                      <option value="stop">Промежуточная</option>
+                      <option value="destination">Конец</option>
                     </select>
                   </div>
 
                   <div className="md:col-span-2">
-                    <label className="label">Address *</label>
+                    <label className="label">Адрес *</label>
                     <input
                       {...register(`stops.${index}.address`)}
                       className={`input ${errors.stops?.[index]?.address ? 'input-error' : ''}`}
-                      placeholder="Enter address"
+                      placeholder="Введите адрес"
                     />
                     {errors.stops?.[index]?.address && (
                       <p className="mt-1 text-sm text-red-600">
@@ -205,16 +205,16 @@ export default function NewRoutePage() {
                   </div>
 
                   <div>
-                    <label className="label">Contact Name</label>
+                    <label className="label">Контактное лицо</label>
                     <input
                       {...register(`stops.${index}.contact_name`)}
                       className="input"
-                      placeholder="John Doe"
+                      placeholder="Иван Иванов"
                     />
                   </div>
 
                   <div>
-                    <label className="label">Contact Phone</label>
+                    <label className="label">Контактный телефон</label>
                     <input
                       {...register(`stops.${index}.contact_phone`)}
                       className="input"
@@ -240,7 +240,7 @@ export default function NewRoutePage() {
         {/* Actions */}
         <div className="flex justify-end gap-4">
           <Link to="/routes" className="btn-secondary">
-            Cancel
+            Отмена
           </Link>
           <button
             type="submit"
@@ -250,7 +250,7 @@ export default function NewRoutePage() {
             {createMutation.isPending ? (
               <LoadingSpinner size="sm" />
             ) : (
-              'Create Route'
+              'Создать маршрут'
             )}
           </button>
         </div>

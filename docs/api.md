@@ -1,22 +1,22 @@
-# Freight Transport Management API
+# API АС "Грузоперевозки"
 
-## Overview
+## Обзор
 
-RESTful API for managing freight transport routes and users.
+RESTful API для управления маршрутами грузоперевозок и пользователями.
 
-Base URL: `/api`
+Базовый URL: `/api`
 
-## Authentication
+## Аутентификация
 
-The API uses JWT (JSON Web Tokens) for authentication.
+API использует JWT (JSON Web Tokens) для аутентификации.
 
-### Login
+### Вход в систему
 
 ```
 POST /api/auth/login
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
   "email": "admin@freight.local",
@@ -24,7 +24,7 @@ Request body:
 }
 ```
 
-Response:
+Ответ:
 ```json
 {
   "access_token": "eyJ...",
@@ -33,7 +33,7 @@ Response:
   "user": {
     "id": "uuid",
     "email": "admin@freight.local",
-    "full_name": "System Admin",
+    "full_name": "Системный администратор",
     "role": "admin",
     "is_active": true,
     "must_change_password": false,
@@ -43,47 +43,47 @@ Response:
 }
 ```
 
-### Refresh Token
+### Обновление токена
 
 ```
 POST /api/auth/refresh
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
   "refresh_token": "eyJ..."
 }
 ```
 
-### Logout
+### Выход из системы
 
 ```
 POST /api/auth/logout
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
   "refresh_token": "eyJ..."
 }
 ```
 
-### Get Current User
+### Получить текущего пользователя
 
 ```
 GET /api/auth/me
 Authorization: Bearer <access_token>
 ```
 
-### Change Password
+### Изменить пароль
 
 ```
 POST /api/auth/change-password
 Authorization: Bearer <access_token>
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
   "current_password": "oldpassword",
@@ -91,23 +91,23 @@ Request body:
 }
 ```
 
-## Users (Admin only)
+## Пользователи (Только для администратора)
 
-### List Users
+### Список пользователей
 
 ```
 GET /api/users?limit=20&offset=0
 Authorization: Bearer <access_token>
 ```
 
-### Create User
+### Создать пользователя
 
 ```
 POST /api/users
 Authorization: Bearer <access_token>
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
   "email": "user@example.com",
@@ -117,182 +117,182 @@ Request body:
 }
 ```
 
-### Update User
+### Обновить пользователя
 
 ```
 PATCH /api/users/{user_id}
 Authorization: Bearer <access_token>
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
-  "full_name": "Jane Doe",
+  "full_name": "Иван Иванов",
   "role": "admin",
   "is_active": true
 }
 ```
 
-### Reset User Password
+### Сбросить пароль пользователя
 
 ```
 POST /api/users/{user_id}/reset-password
 Authorization: Bearer <access_token>
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
   "new_password": "newpassword123"
 }
 ```
 
-## Routes
+## Маршруты
 
-### List Routes
+### Список маршрутов
 
 ```
 GET /api/routes?limit=20&offset=0&status=draft&q=search
 Authorization: Bearer <access_token>
 ```
 
-Query parameters:
-- `limit` (int): Number of items per page (default: 20)
-- `offset` (int): Number of items to skip (default: 0)
-- `status` (string): Filter by status (draft, active, completed, cancelled)
-- `q` (string): Search by route number or title
-- `created_by` (uuid): Filter by creator
-- `from` (datetime): Filter by creation date (from)
-- `to` (datetime): Filter by creation date (to)
+Параметры запроса:
+- `limit` (int): Количество элементов на странице (по умолчанию: 20)
+- `offset` (int): Количество элементов для пропуска (по умолчанию: 0)
+- `status` (string): Фильтр по статусу (draft, active, completed, cancelled)
+- `q` (string): Поиск по номеру или названию маршрута
+- `created_by` (uuid): Фильтр по создателю
+- `from` (datetime): Фильтр по дате создания (с)
+- `to` (datetime): Фильтр по дате создания (до)
 
-### Get Route
+### Получить маршрут
 
 ```
 GET /api/routes/{route_id}
 Authorization: Bearer <access_token>
 ```
 
-### Create Route
+### Создать маршрут
 
 ```
 POST /api/routes
 Authorization: Bearer <access_token>
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
-  "title": "Moscow - Saint Petersburg",
+  "title": "Москва - Санкт-Петербург",
   "route_number": null,
   "planned_departure_at": "2024-01-15T08:00:00Z",
-  "comment": "Express delivery",
+  "comment": "Экспресс-доставка",
   "stops": [
     {
       "seq": 1,
       "type": "origin",
-      "address": "Moscow, Red Square 1",
-      "contact_name": "Ivan Petrov",
+      "address": "Москва, Красная площадь 1",
+      "contact_name": "Иван Петров",
       "contact_phone": "+7 999 123 4567"
     },
     {
       "seq": 2,
       "type": "destination",
-      "address": "Saint Petersburg, Nevsky Prospekt 1",
-      "contact_name": "Maria Ivanova",
+      "address": "Санкт-Петербург, Невский проспект 1",
+      "contact_name": "Мария Иванова",
       "contact_phone": "+7 999 765 4321"
     }
   ]
 }
 ```
 
-### Update Route
+### Обновить маршрут
 
 ```
 PATCH /api/routes/{route_id}
 Authorization: Bearer <access_token>
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
-  "title": "Updated Title",
-  "comment": "Updated comment",
+  "title": "Обновлённое название",
+  "comment": "Обновлённый комментарий",
   "status": "active"
 }
 ```
 
-### Update Route Stops
+### Обновить остановки маршрута
 
 ```
 PUT /api/routes/{route_id}/stops
 Authorization: Bearer <access_token>
 ```
 
-Request body:
+Тело запроса:
 ```json
 {
   "stops": [
     {
       "seq": 1,
       "type": "origin",
-      "address": "New Moscow Address"
+      "address": "Новый адрес в Москве"
     },
     {
       "seq": 2,
       "type": "stop",
-      "address": "Intermediate Stop"
+      "address": "Промежуточная остановка"
     },
     {
       "seq": 3,
       "type": "destination",
-      "address": "New Destination"
+      "address": "Новый пункт назначения"
     }
   ]
 }
 ```
 
-### Cancel Route
+### Отменить маршрут
 
 ```
 POST /api/routes/{route_id}/cancel
 Authorization: Bearer <access_token>
 ```
 
-## Error Response Format
+## Формат ответа с ошибкой
 
-All errors follow a consistent format:
+Все ошибки следуют единому формату:
 
 ```json
 {
   "error": {
     "code": "VALIDATION_ERROR",
-    "message": "Human readable message",
+    "message": "Читаемое человеком сообщение",
     "details": [
       {
         "field": "email",
-        "message": "Invalid email format"
+        "message": "Неверный формат email"
       }
     ]
   }
 }
 ```
 
-Error codes:
-- `VALIDATION_ERROR` (422)
-- `AUTHENTICATION_ERROR` (401)
-- `AUTHORIZATION_ERROR` (403)
-- `NOT_FOUND` (404)
-- `CONFLICT` (409)
-- `BUSINESS_RULE_ERROR` (400)
-- `INTERNAL_ERROR` (500)
+Коды ошибок:
+- `VALIDATION_ERROR` (422) - Ошибка валидации
+- `AUTHENTICATION_ERROR` (401) - Ошибка аутентификации
+- `AUTHORIZATION_ERROR` (403) - Ошибка авторизации
+- `NOT_FOUND` (404) - Не найдено
+- `CONFLICT` (409) - Конфликт
+- `BUSINESS_RULE_ERROR` (400) - Ошибка бизнес-правила
+- `INTERNAL_ERROR` (500) - Внутренняя ошибка
 
-## Health Check
+## Проверка работоспособности
 
 ```
 GET /health
 ```
 
-Response:
+Ответ:
 ```json
 {
   "status": "healthy",
@@ -300,7 +300,7 @@ Response:
 }
 ```
 
-## OpenAPI Documentation
+## Документация OpenAPI
 
 - Swagger UI: `/docs`
 - ReDoc: `/redoc`

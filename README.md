@@ -1,90 +1,90 @@
-# Freight Transport Management System
+# АС "Грузоперевозки"
 
-A web application for managing freight transport routes and shipments.
+Веб-приложение для управления маршрутами грузоперевозок и отправками.
 
-## Features
+## Возможности
 
-- **User Management**: Create and manage users with different roles (Admin, Dispatcher, Viewer)
-- **Route Management**: Create, edit, and track transport routes with multiple stops
-- **Authentication**: JWT-based authentication with refresh token support
-- **Role-Based Access Control**: Different permissions for admins, dispatchers, and viewers
+- **Управление пользователями**: Создание и управление пользователями с различными ролями (Администратор, Диспетчер, Наблюдатель)
+- **Управление маршрутами**: Создание, редактирование и отслеживание транспортных маршрутов с несколькими остановками
+- **Аутентификация**: JWT-аутентификация с поддержкой refresh-токенов
+- **Контроль доступа на основе ролей**: Различные права доступа для администраторов, диспетчеров и наблюдателей
 
-## Tech Stack
+## Технологический стек
 
 ### Backend
-- Python 3.11+
+- Python
 - FastAPI
-- SQLAlchemy 2.0 (async)
+- SQLAlchemy 2.0 (асинхронный)
 - PostgreSQL
-- Pydantic for validation
-- JWT authentication
+- Pydantic для валидации
+- JWT аутентификация
 
 ### Frontend
-- React 18
+- React 
 - TypeScript
 - Tailwind CSS
 - React Router
 - React Query
-- Zustand for state management
+- Zustand для управления состоянием
 
-### Infrastructure
+### Инфраструктура
 - Docker & Docker Compose
 - Nginx
 
-## Quick Start
+## Быстрый старт
 
-### Using Docker Compose (Recommended)
+### Использование Docker Compose (Рекомендуется)
 
-1. Clone the repository and navigate to the infra directory:
+1. Клонируйте репозиторий и перейдите в директорию infra:
 ```bash
 cd infra
 ```
 
-2. Copy the example environment file:
+2. Скопируйте файл с примером переменных окружения:
 ```bash
 cp .env.example .env
 ```
 
-3. Start the services:
+3. Запустите сервисы:
 ```bash
 docker-compose up -d
 ```
 
-4. Access the application:
+4. Доступ к приложению:
 - Frontend: http://localhost
-- API Documentation: http://localhost/docs
+- Документация API: http://localhost/docs
 - Backend API: http://localhost:8000
 
-5. Login with default credentials:
+5. Войдите используя данные по умолчанию:
 - Email: `admin@freight.local`
-- Password: `admin123`
+- Пароль: `admin123`
 
-### Local Development
+### Локальная разработка
 
 #### Backend
 
-1. Navigate to the backend directory:
+1. Перейдите в директорию backend:
 ```bash
 cd apps/backend
 ```
 
-2. Create a virtual environment:
+2. Создайте виртуальное окружение:
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # В Windows: venv\Scripts\activate
 ```
 
-3. Install dependencies:
+3. Установите зависимости:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Set up environment variables:
+4. Настройте переменные окружения:
 ```bash
 cp .env.example .env
 ```
 
-5. Start PostgreSQL (using Docker):
+5. Запустите PostgreSQL (используя Docker):
 ```bash
 docker run -d --name freight_db \
   -e POSTGRES_USER=postgres \
@@ -94,67 +94,67 @@ docker run -d --name freight_db \
   postgres:15-alpine
 ```
 
-6. Run the backend:
+6. Запустите backend:
 ```bash
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 #### Frontend
 
-1. Navigate to the frontend directory:
+1. Перейдите в директорию frontend:
 ```bash
 cd apps/frontend
 ```
 
-2. Install dependencies:
+2. Установите зависимости:
 ```bash
 npm install
 ```
 
-3. Start the development server:
+3. Запустите сервер разработки:
 ```bash
 npm run dev
 ```
 
-4. Access the frontend at http://localhost:3000
+4. Откройте frontend по адресу http://localhost:3000
 
-## Running Tests
+## Запуск тестов
 
-### Backend Tests
+### Тесты Backend
 
 ```bash
 cd apps/backend
 pip install -r requirements.txt
-pip install aiosqlite  # For SQLite testing
+pip install aiosqlite  # Для тестирования с SQLite
 pytest
 ```
 
-## Project Structure
+## Структура проекта
 
 ```
 /
 ├── apps/
-│   ├── backend/           # FastAPI backend
+│   ├── backend/           # Backend на FastAPI
 │   │   ├── app/
-│   │   │   ├── core/      # Config, security, logging
-│   │   │   ├── db/        # Database session and base
-│   │   │   ├── models/    # SQLAlchemy models
-│   │   │   ├── schemas/   # Pydantic schemas
-│   │   │   ├── routers/   # API endpoints
-│   │   │   ├── services/  # Business logic
-│   │   │   ├── repositories/  # Data access
-│   │   │   └── tests/     # Tests
+│   │   │   ├── core/      # Конфигурация, безопасность, логирование
+│   │   │   ├── db/        # Сессия БД и базовые классы
+│   │   │   ├── models/    # Модели SQLAlchemy
+│   │   │   ├── schemas/   # Схемы Pydantic
+│   │   │   ├── routers/   # API эндпоинты
+│   │   │   ├── services/  # Бизнес-логика
+│   │   │   ├── repositories/  # Доступ к данным
+│   │   │   └── tests/     # Тесты
 │   │   ├── Dockerfile
 │   │   └── requirements.txt
 │   │
-│   └── frontend/          # React frontend
+│   └── frontend/          # Frontend на React
 │       ├── src/
-│       │   ├── api/       # API client and types
-│       │   ├── components/# Reusable components
-│       │   ├── hooks/     # Custom hooks
-│       │   ├── pages/     # Page components
-│       │   ├── store/     # State management
-│       │   └── styles/    # CSS styles
+│       │   ├── api/       # API клиент и типы
+│       │   ├── components/# Переиспользуемые компоненты
+│       │   ├── hooks/     # Пользовательские хуки
+│       │   ├── pages/     # Компоненты страниц
+│       │   ├── store/     # Управление состоянием
+│       │   └── styles/    # CSS стили
 │       ├── Dockerfile
 │       └── package.json
 │
@@ -163,59 +163,59 @@ pytest
 │   └── nginx.conf
 │
 └── docs/
-    ├── api.md             # API documentation
-    └── requirements.md    # Requirements specification
+    ├── api.md             # Документация API
+    └── requirements.md    # Спецификация требований
 ```
 
-## API Endpoints
+## API эндпоинты
 
-### Authentication
-- `POST /api/auth/login` - Login
-- `POST /api/auth/refresh` - Refresh token
-- `POST /api/auth/logout` - Logout
-- `GET /api/auth/me` - Get current user
-- `POST /api/auth/change-password` - Change password
+### Аутентификация
+- `POST /api/auth/login` - Вход в систему
+- `POST /api/auth/refresh` - Обновить токен
+- `POST /api/auth/logout` - Выход из системы
+- `GET /api/auth/me` - Получить текущего пользователя
+- `POST /api/auth/change-password` - Изменить пароль
 
-### Users (Admin only)
-- `GET /api/users` - List users
-- `POST /api/users` - Create user
-- `PATCH /api/users/{id}` - Update user
-- `POST /api/users/{id}/reset-password` - Reset password
+### Пользователи (Только для администратора)
+- `GET /api/users` - Список пользователей
+- `POST /api/users` - Создать пользователя
+- `PATCH /api/users/{id}` - Обновить пользователя
+- `POST /api/users/{id}/reset-password` - Сбросить пароль
 
-### Routes
-- `GET /api/routes` - List routes (with filters)
-- `POST /api/routes` - Create route
-- `GET /api/routes/{id}` - Get route details
-- `PATCH /api/routes/{id}` - Update route
-- `PUT /api/routes/{id}/stops` - Update route stops
-- `POST /api/routes/{id}/cancel` - Cancel route
+### Маршруты
+- `GET /api/routes` - Список маршрутов (с фильтрами)
+- `POST /api/routes` - Создать маршрут
+- `GET /api/routes/{id}` - Получить детали маршрута
+- `PATCH /api/routes/{id}` - Обновить маршрут
+- `PUT /api/routes/{id}/stops` - Обновить остановки маршрута
+- `POST /api/routes/{id}/cancel` - Отменить маршрут
 
-## User Roles
+## Роли пользователей
 
-| Role | Permissions |
+| Роль | Права доступа |
 |------|-------------|
-| Admin | Full access: manage users and routes |
-| Dispatcher | Create and manage routes |
-| Viewer | View routes only |
+| Администратор | Полный доступ: управление пользователями и маршрутами |
+| Диспетчер | Создание и управление маршрутами |
+| Наблюдатель | Только просмотр маршрутов |
 
-## Default Admin Credentials
+## Учётные данные администратора по умолчанию
 
 - Email: `admin@freight.local`
-- Password: `admin123`
+- Пароль: `admin123`
 
-**⚠️ Change these credentials in production!**
+**⚠️ Измените эти данные в production окружении!**
 
-## Environment Variables
+## Переменные окружения
 
 ### Backend
-| Variable | Description | Default |
+| Переменная | Описание | По умолчанию |
 |----------|-------------|---------|
-| DATABASE_URL | PostgreSQL connection string | - |
-| SECRET_KEY | JWT secret key | - |
-| DEBUG | Enable debug mode | false |
-| ADMIN_EMAIL | Default admin email | admin@freight.local |
-| ADMIN_PASSWORD | Default admin password | admin123 |
+| DATABASE_URL | Строка подключения к PostgreSQL | - |
+| SECRET_KEY | Секретный ключ для JWT | - |
+| DEBUG | Включить режим отладки | false |
+| ADMIN_EMAIL | Email администратора по умолчанию | admin@freight.local |
+| ADMIN_PASSWORD | Пароль администратора по умолчанию | admin123 |
 
-## License
+## Лицензия
 
 MIT

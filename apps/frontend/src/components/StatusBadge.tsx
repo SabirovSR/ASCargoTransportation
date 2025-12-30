@@ -6,10 +6,10 @@ interface StatusBadgeProps {
 }
 
 const statusConfig: Record<RouteStatus, { label: string; className: string }> = {
-  draft: { label: 'Draft', className: 'badge-draft' },
-  active: { label: 'Active', className: 'badge-active' },
-  completed: { label: 'Completed', className: 'badge-completed' },
-  cancelled: { label: 'Cancelled', className: 'badge-cancelled' },
+  draft: { label: 'Черновик', className: 'badge-draft' },
+  active: { label: 'Активен', className: 'badge-active' },
+  completed: { label: 'Завершён', className: 'badge-completed' },
+  cancelled: { label: 'Отменён', className: 'badge-cancelled' },
 }
 
 export default function StatusBadge({ status }: StatusBadgeProps) {

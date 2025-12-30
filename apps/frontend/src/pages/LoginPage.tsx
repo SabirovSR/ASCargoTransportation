@@ -6,8 +6,8 @@ import { useLogin } from '../hooks/useAuth'
 import { LoadingSpinner } from '../components'
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().email('Неверный адрес электронной почты'),
+  password: z.string().min(1, 'Пароль обязателен'),
 })
 
 type LoginForm = z.infer<typeof loginSchema>
@@ -28,7 +28,7 @@ export default function LoginPage() {
   }
 
   const errorMessage = loginMutation.error
-    ? (loginMutation.error as any)?.response?.data?.error?.message || 'Login failed'
+    ? (loginMutation.error as any)?.response?.data?.error?.message || 'Ошибка входа'
     : null
 
   return (
@@ -41,10 +41,10 @@ export default function LoginPage() {
             </div>
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Freight Transport
+            Грузоперевозки
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Sign in to your account
+            Войдите в свой аккаунт
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export default function LoginPage() {
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="label">
-                Email address
+                Электронная почта
               </label>
               <input
                 id="email"
@@ -80,7 +80,7 @@ export default function LoginPage() {
 
             <div>
               <label htmlFor="password" className="label">
-                Password
+                Пароль
               </label>
               <input
                 id="password"
@@ -104,12 +104,12 @@ export default function LoginPage() {
             {loginMutation.isPending ? (
               <LoadingSpinner size="sm" />
             ) : (
-              'Sign in'
+              'Войти'
             )}
           </button>
 
           <p className="text-center text-xs text-gray-500">
-            Default credentials: admin@freight.local / admin123
+            Данные по умолчанию: admin@freight.local / admin123
           </p>
         </form>
       </div>

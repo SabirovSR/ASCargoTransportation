@@ -32,11 +32,11 @@ export default function RoutesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Routes</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Маршруты</h1>
         {canCreateRoute && (
           <Link to="/routes/new" className="btn-primary">
             <Plus className="h-4 w-4 mr-2" />
-            New Route
+            Новый маршрут
           </Link>
         )}
       </div>
@@ -49,7 +49,7 @@ export default function RoutesPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search by route number or title..."
+                placeholder="Поиск по номеру или названию маршрута..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="input pl-10"
@@ -65,16 +65,16 @@ export default function RoutesPage() {
               }}
               className="input"
             >
-              <option value="">All statuses</option>
-              <option value="draft">Draft</option>
-              <option value="active">Active</option>
-              <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
+              <option value="">Все статусы</option>
+              <option value="draft">Черновик</option>
+              <option value="active">Активен</option>
+              <option value="completed">Завершён</option>
+              <option value="cancelled">Отменён</option>
             </select>
           </div>
           <button type="submit" className="btn-secondary">
             <Filter className="h-4 w-4 mr-2" />
-            Filter
+            Фильтр
           </button>
         </form>
       </div>
@@ -88,13 +88,13 @@ export default function RoutesPage() {
         ) : data?.items.length === 0 ? (
           <EmptyState
             icon={Route}
-            title="No routes found"
-            description={search || status ? "Try adjusting your filters" : "Create your first route to get started"}
+            title="Маршруты не найдены"
+            description={search || status ? "Попробуйте изменить фильтры" : "Создайте первый маршрут для начала работы"}
             action={
               canCreateRoute && !search && !status && (
                 <Link to="/routes/new" className="btn-primary">
                   <Plus className="h-4 w-4 mr-2" />
-                  Create Route
+                  Создать маршрут
                 </Link>
               )
             }
@@ -106,19 +106,19 @@ export default function RoutesPage() {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Route
+                      Маршрут
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
+                      Статус
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Stops
+                      Остановки
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Created By
+                      Создал
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Created At
+                      Дата создания
                     </th>
                   </tr>
                 </thead>
@@ -137,7 +137,7 @@ export default function RoutesPage() {
                         <StatusBadge status={route.status} />
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {route.stops.length} stops
+                        {route.stops.length} ост.
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {route.created_by_user?.full_name || '-'}

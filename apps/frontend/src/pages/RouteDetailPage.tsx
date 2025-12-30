@@ -71,9 +71,9 @@ export default function RouteDetailPage() {
   if (error || !route) {
     return (
       <div className="text-center py-12">
-        <p className="text-red-500">Route not found</p>
+        <p className="text-red-500">Маршрут не найден</p>
         <Link to="/routes" className="text-primary-600 hover:underline mt-4 inline-block">
-          Back to routes
+          Вернуться к маршрутам
         </Link>
       </div>
     )
@@ -104,13 +104,13 @@ export default function RouteDetailPage() {
               className="btn-primary"
             >
               <CheckCircle className="h-4 w-4 mr-2" />
-              Activate
+              Активировать
             </button>
           )}
           {canEdit && (
             <button onClick={startEdit} className="btn-secondary">
               <Edit className="h-4 w-4 mr-2" />
-              Edit
+              Редактировать
             </button>
           )}
           {canCancel && (
@@ -119,7 +119,7 @@ export default function RouteDetailPage() {
               className="btn-danger"
             >
               <XCircle className="h-4 w-4 mr-2" />
-              Cancel Route
+              Отменить маршрут
             </button>
           )}
         </div>
@@ -131,7 +131,7 @@ export default function RouteDetailPage() {
         <div className="lg:col-span-2 space-y-6">
           {/* Route Stops */}
           <div className="card p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Route Stops</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Остановки маршрута</h2>
             <div className="space-y-4">
               {route.stops.map((stop, index) => (
                 <div key={stop.id} className="flex gap-4">
@@ -153,7 +153,7 @@ export default function RouteDetailPage() {
                           stop.type === 'origin' ? 'text-green-600' :
                           stop.type === 'destination' ? 'text-red-600' : 'text-blue-600'
                         }`}>
-                          {stop.type}
+                          {stop.type === 'origin' ? 'Начало' : stop.type === 'destination' ? 'Конец' : 'Промежуточная'}
                         </span>
                         <p className="font-medium text-gray-900 mt-1">{stop.address}</p>
                       </div>
@@ -183,7 +183,7 @@ export default function RouteDetailPage() {
           {/* Comment */}
           {route.comment && (
             <div className="card p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-2">Comment</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-2">Комментарий</h2>
               <p className="text-gray-600 whitespace-pre-wrap">{route.comment}</p>
             </div>
           )}
@@ -192,29 +192,29 @@ export default function RouteDetailPage() {
         {/* Sidebar */}
         <div className="space-y-6">
           <div className="card p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Details</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Детали</h2>
             <dl className="space-y-4">
               <div>
-                <dt className="text-sm text-gray-500">Created by</dt>
+                <dt className="text-sm text-gray-500">Создал</dt>
                 <dd className="font-medium text-gray-900">
                   {route.created_by_user?.full_name || '-'}
                 </dd>
               </div>
               <div>
-                <dt className="text-sm text-gray-500">Created at</dt>
+                <dt className="text-sm text-gray-500">Дата создания</dt>
                 <dd className="font-medium text-gray-900">
                   {format(new Date(route.created_at), 'MMM d, yyyy HH:mm')}
                 </dd>
               </div>
               <div>
-                <dt className="text-sm text-gray-500">Updated at</dt>
+                <dt className="text-sm text-gray-500">Дата обновления</dt>
                 <dd className="font-medium text-gray-900">
                   {format(new Date(route.updated_at), 'MMM d, yyyy HH:mm')}
                 </dd>
               </div>
               {route.planned_departure_at && (
                 <div>
-                  <dt className="text-sm text-gray-500">Planned departure</dt>
+                  <dt className="text-sm text-gray-500">Планируемый выезд</dt>
                   <dd className="font-medium text-gray-900">
                     {format(new Date(route.planned_departure_at), 'MMM d, yyyy HH:mm')}
                   </dd>
@@ -229,25 +229,25 @@ export default function RouteDetailPage() {
       <Modal
         isOpen={showCancelModal}
         onClose={() => setShowCancelModal(false)}
-        title="Cancel Route"
+        title="Отменить маршрут"
       >
         <p className="text-gray-600 mb-4">
-          Are you sure you want to cancel route <strong>{route.route_number}</strong>?
-          This action cannot be undone.
+          Вы уверены, что хотите отменить маршрут <strong>{route.route_number}</strong>?
+          Это действие нельзя отменить.
         </p>
         <div className="flex justify-end gap-3">
           <button
             onClick={() => setShowCancelModal(false)}
             className="btn-secondary"
           >
-            No, keep it
+            Нет, оставить
           </button>
           <button
             onClick={handleCancel}
             disabled={cancelMutation.isPending}
             className="btn-danger"
           >
-            {cancelMutation.isPending ? <LoadingSpinner size="sm" /> : 'Yes, cancel'}
+            {cancelMutation.isPending ? <LoadingSpinner size="sm" /> : 'Да, отменить'}
           </button>
         </div>
       </Modal>
@@ -256,11 +256,11 @@ export default function RouteDetailPage() {
       <Modal
         isOpen={isEditing}
         onClose={() => setIsEditing(false)}
-        title="Edit Route"
+        title="Редактировать маршрут"
       >
         <div className="space-y-4">
           <div>
-            <label className="label">Title</label>
+            <label className="label">Название</label>
             <input
               type="text"
               value={editTitle}
@@ -269,7 +269,7 @@ export default function RouteDetailPage() {
             />
           </div>
           <div>
-            <label className="label">Comment</label>
+            <label className="label">Комментарий</label>
             <textarea
               value={editComment}
               onChange={(e) => setEditComment(e.target.value)}
@@ -282,14 +282,14 @@ export default function RouteDetailPage() {
               onClick={() => setIsEditing(false)}
               className="btn-secondary"
             >
-              Cancel
+              Отмена
             </button>
             <button
               onClick={handleSaveEdit}
               disabled={updateMutation.isPending}
               className="btn-primary"
             >
-              {updateMutation.isPending ? <LoadingSpinner size="sm" /> : 'Save'}
+              {updateMutation.isPending ? <LoadingSpinner size="sm" /> : 'Сохранить'}
             </button>
           </div>
         </div>

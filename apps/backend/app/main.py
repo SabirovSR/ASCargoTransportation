@@ -53,7 +53,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
-    description="API for managing freight transport routes and shipments",
+    description="API для управления маршрутами грузоперевозок и отправками",
     lifespan=lifespan,
     docs_url="/docs",
     redoc_url="/redoc",

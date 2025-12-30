@@ -14,12 +14,12 @@ import { useLogout } from '../hooks/useAuth'
 import clsx from 'clsx'
 
 const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard', exact: true },
-  { to: '/routes', icon: Route, label: 'Routes' },
+  { to: '/', icon: LayoutDashboard, label: 'Панель управления', exact: true },
+  { to: '/routes', icon: Route, label: 'Маршруты' },
 ]
 
 const adminNavItems = [
-  { to: '/admin/users', icon: Users, label: 'Users' },
+  { to: '/admin/users', icon: Users, label: 'Пользователи' },
 ]
 
 export default function Layout() {
@@ -45,13 +45,13 @@ export default function Layout() {
 
       {/* Sidebar */}
       <aside className={clsx(
-        'fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0',
+        'fixed inset-y-0 left-0 z-30 w-80 lg:w-72 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0',
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       )}>
         <div className="flex items-center justify-between h-16 px-4 border-b">
           <div className="flex items-center gap-2">
             <Truck className="h-8 w-8 text-primary-600" />
-            <span className="text-lg font-bold text-gray-900">FreightApp</span>
+            <span className="text-lg font-bold text-gray-900">АС "Грузоперевозки"</span>
           </div>
           <button 
             className="lg:hidden p-2"
@@ -84,7 +84,7 @@ export default function Layout() {
             <>
               <div className="pt-4">
                 <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                  Admin
+                  Администратор
                 </p>
               </div>
               {adminNavItems.map((item) => (
@@ -126,13 +126,13 @@ export default function Layout() {
             className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
           >
             <LogOut className="h-4 w-4" />
-            Logout
+            Выход
           </button>
         </div>
       </aside>
 
       {/* Main content */}
-      <div className="lg:pl-64">
+      <div className="lg:pl-72">
         {/* Top bar */}
         <header className="sticky top-0 z-10 bg-white shadow-sm">
           <div className="flex items-center h-16 px-4">

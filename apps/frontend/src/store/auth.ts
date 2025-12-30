@@ -48,7 +48,7 @@ export const useAuthStore = create<AuthState>()(
         }),
     }),
     {
-      name: 'freight-auth',
+      name: 'cargo-auth',
       partialize: (state) => ({
         user: state.user,
         accessToken: state.accessToken,

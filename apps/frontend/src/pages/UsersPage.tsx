@@ -12,9 +12,9 @@ import { format } from 'date-fns'
 const LIMIT = 10
 
 const createUserSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  full_name: z.string().min(1, 'Name is required'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  email: z.string().email('Неверный адрес электронной почты'),
+  full_name: z.string().min(1, 'Имя обязательно'),
+  password: z.string().min(6, 'Пароль должен содержать минимум 6 символов'),
   role: z.enum(['admin', 'dispatcher', 'viewer'] as const),
 })
 
@@ -78,7 +78,7 @@ export default function UsersPage() {
   if (currentUser?.role !== 'admin') {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500">You don't have permission to view this page.</p>
+        <p className="text-gray-500">У вас нет прав для просмотра этой страницы.</p>
       </div>
     )
   }
@@ -86,13 +86,13 @@ export default function UsersPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Users</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Пользователи</h1>
         <button
           onClick={() => setShowCreateModal(true)}
           className="btn-primary"
         >
           <Plus className="h-4 w-4 mr-2" />
-          New User
+          Новый пользователь
         </button>
       </div>
 
@@ -104,12 +104,12 @@ export default function UsersPage() {
         ) : data?.items.length === 0 ? (
           <EmptyState
             icon={Users}
-            title="No users found"
-            description="Create your first user to get started"
+            title="Пользователи не найдены"
+            description="Создайте первого пользователя для начала работы"
             action={
               <button onClick={() => setShowCreateModal(true)} className="btn-primary">
                 <Plus className="h-4 w-4 mr-2" />
-                Create User
+                Создать пользователя
               </button>
             }
           />
@@ -120,19 +120,19 @@ export default function UsersPage() {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      User
+                      Пользователь
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Role
+                      Роль
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
+                      Статус
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Created At
+                      Дата создания
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
+                      Действия
                     </th>
                   </tr>
                 </thead>
@@ -159,9 +159,9 @@ export default function UsersPage() {
                           disabled={user.id === currentUser?.id}
                           className="input py-1 px-2 w-32"
                         >
-                          <option value="admin">Admin</option>
-                          <option value="dispatcher">Dispatcher</option>
-                          <option value="viewer">Viewer</option>
+                          <option value="admin">Администратор</option>
+                          <option value="dispatcher">Диспетчер</option>
+                          <option value="viewer">Наблюдатель</option>
                         </select>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -170,7 +170,7 @@ export default function UsersPage() {
                           disabled={user.id === currentUser?.id}
                           className={`badge ${user.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
                         >
-                          {user.is_active ? 'Active' : 'Inactive'}
+                          {user.is_active ? 'Активен' : 'Неактивен'}
                         </button>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -180,7 +180,7 @@ export default function UsersPage() {
                         <button
                           onClick={() => setResetPasswordUser(user)}
                           className="text-primary-600 hover:text-primary-800"
-                          title="Reset Password"
+                          title="Сбросить пароль"
                         >
                           <Key className="h-4 w-4" />
                         </button>
@@ -207,11 +207,11 @@ export default function UsersPage() {
           setShowCreateModal(false)
           reset()
         }}
-        title="Create User"
+        title="Создать пользователя"
       >
         <form onSubmit={handleSubmit(onCreateSubmit)} className="space-y-4">
           <div>
-            <label className="label">Email</label>
+            <label className="label">Электронная почта</label>
             <input
               {...register('email')}
               type="email"
@@ -224,11 +224,11 @@ export default function UsersPage() {
           </div>
 
           <div>
-            <label className="label">Full Name</label>
+            <label className="label">Полное имя</label>
             <input
               {...register('full_name')}
               className={`input ${errors.full_name ? 'input-error' : ''}`}
-              placeholder="John Doe"
+              placeholder="Иван Иванов"
             />
             {errors.full_name && (
               <p className="mt-1 text-sm text-red-600">{errors.full_name.message}</p>
@@ -236,7 +236,7 @@ export default function UsersPage() {
           </div>
 
           <div>
-            <label className="label">Password</label>
+            <label className="label">Пароль</label>
             <input
               {...register('password')}
               type="password"
@@ -249,11 +249,11 @@ export default function UsersPage() {
           </div>
 
           <div>
-            <label className="label">Role</label>
+            <label className="label">Роль</label>
             <select {...register('role')} className="input">
-              <option value="viewer">Viewer</option>
-              <option value="dispatcher">Dispatcher</option>
-              <option value="admin">Admin</option>
+              <option value="viewer">Наблюдатель</option>
+              <option value="dispatcher">Диспетчер</option>
+              <option value="admin">Администратор</option>
             </select>
           </div>
 
@@ -266,14 +266,14 @@ export default function UsersPage() {
               }}
               className="btn-secondary"
             >
-              Cancel
+              Отмена
             </button>
             <button
               type="submit"
               disabled={createMutation.isPending}
               className="btn-primary"
             >
-              {createMutation.isPending ? <LoadingSpinner size="sm" /> : 'Create'}
+              {createMutation.isPending ? <LoadingSpinner size="sm" /> : 'Создать'}
             </button>
           </div>
         </form>
@@ -286,14 +286,14 @@ export default function UsersPage() {
           setResetPasswordUser(null)
           setNewPassword('')
         }}
-        title="Reset Password"
+        title="Сбросить пароль"
       >
         <div className="space-y-4">
           <p className="text-gray-600">
-            Reset password for <strong>{resetPasswordUser?.full_name}</strong>
+            Сбросить пароль для <strong>{resetPasswordUser?.full_name}</strong>
           </p>
           <div>
-            <label className="label">New Password</label>
+            <label className="label">Новый пароль</label>
             <input
               type="password"
               value={newPassword}
@@ -311,14 +311,14 @@ export default function UsersPage() {
               }}
               className="btn-secondary"
             >
-              Cancel
+              Отмена
             </button>
             <button
               onClick={handleResetPassword}
               disabled={resetPasswordMutation.isPending || newPassword.length < 6}
               className="btn-primary"
             >
-              {resetPasswordMutation.isPending ? <LoadingSpinner size="sm" /> : 'Reset'}
+              {resetPasswordMutation.isPending ? <LoadingSpinner size="sm" /> : 'Сбросить'}
             </button>
           </div>
         </div>

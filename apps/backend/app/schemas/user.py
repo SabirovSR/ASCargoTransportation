@@ -1,8 +1,9 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field
 from datetime import datetime
 from uuid import UUID
 
 from app.models.user import UserRole
+from app.schemas.common import EmailStr
 
 
 class UserBase(BaseModel):
