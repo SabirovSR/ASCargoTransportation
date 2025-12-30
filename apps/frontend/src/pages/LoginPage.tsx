@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Truck, AlertCircle } from 'lucide-react'
+import { Ship, AlertCircle } from 'lucide-react'
 import { useLogin } from '../hooks/useAuth'
 import { LoadingSpinner } from '../components'
 
@@ -37,11 +37,11 @@ export default function LoginPage() {
         <div>
           <div className="flex justify-center">
             <div className="bg-primary-100 p-3 rounded-full">
-              <Truck className="h-12 w-12 text-primary-600" />
+              <Ship className="h-12 w-12 text-primary-600" />
             </div>
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Грузоперевозки
+            Судоперевозки
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Войдите в свой аккаунт

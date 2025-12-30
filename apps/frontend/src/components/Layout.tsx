@@ -4,7 +4,7 @@ import {
   Route, 
   Users, 
   LogOut, 
-  Truck,
+  Ship,
   Menu,
   X
 } from 'lucide-react'
@@ -50,8 +50,8 @@ export default function Layout() {
       )}>
         <div className="flex items-center justify-between h-16 px-4 border-b">
           <div className="flex items-center gap-2">
-            <Truck className="h-8 w-8 text-primary-600" />
-            <span className="text-lg font-bold text-gray-900">АС "Грузоперевозки"</span>
+            <Ship className="h-8 w-8 text-primary-600" />
+            <span className="text-lg font-bold text-gray-900">АС "Судоперевозки"</span>
           </div>
           <button 
             className="lg:hidden p-2"
