@@ -1,61 +1,61 @@
-# Freight Transport Management - Requirements
+# АС "Грузоперевозки" - Требования
 
-## 1. Functional Requirements
+## 1. Функциональные требования
 
-### FR-AUTH: Authentication
-- **FR-AUTH-01**: System must provide login via email/password
-- **FR-AUTH-02**: System must support refresh sessions (maintain login on page reload)
-- **FR-AUTH-03**: System must support password change by user
+### FR-AUTH: Аутентификация
+- **FR-AUTH-01**: Система должна обеспечивать вход через email/пароль
+- **FR-AUTH-02**: Система должна поддерживать обновление сессий (сохранение входа при перезагрузке страницы)
+- **FR-AUTH-03**: Система должна поддерживать изменение пароля пользователем
 
-### FR-USER: User Management
-- **FR-USER-01**: Admin must be able to create users
-- **FR-USER-02**: Admin must be able to change user roles
-- **FR-USER-03**: Admin must be able to deactivate users
+### FR-USER: Управление пользователями
+- **FR-USER-01**: Администратор должен иметь возможность создавать пользователей
+- **FR-USER-02**: Администратор должен иметь возможность изменять роли пользователей
+- **FR-USER-03**: Администратор должен иметь возможность деактивировать пользователей
 
-### FR-ROUTE: Route Management
-- **FR-ROUTE-01**: Users with dispatcher/admin role must be able to create routes
-- **FR-ROUTE-02**: Route must contain at least 2 stops (origin, destination)
-- **FR-ROUTE-03**: Each stop must have address and sequence order
-- **FR-ROUTE-04**: Users must be able to view route list
-- **FR-ROUTE-05**: Users must be able to search/filter routes
-- **FR-ROUTE-06**: Users must be able to cancel routes (status: cancelled)
+### FR-ROUTE: Управление маршрутами
+- **FR-ROUTE-01**: Пользователи с ролью диспетчер/администратор должны иметь возможность создавать маршруты
+- **FR-ROUTE-02**: Маршрут должен содержать минимум 2 остановки (начало, конец)
+- **FR-ROUTE-03**: Каждая остановка должна иметь адрес и порядковый номер
+- **FR-ROUTE-04**: Пользователи должны иметь возможность просматривать список маршрутов
+- **FR-ROUTE-05**: Пользователи должны иметь возможность искать/фильтровать маршруты
+- **FR-ROUTE-06**: Пользователи должны иметь возможность отменять маршруты (статус: отменён)
 
-### FR-AUDIT: Audit
-- **FR-AUDIT-01**: System must store route creator and creation/update timestamps
-- **FR-AUDIT-02**: System must log key actions (login, create route, update route, cancel route)
+### FR-AUDIT: Аудит
+- **FR-AUDIT-01**: Система должна хранить создателя маршрута и временные метки создания/обновления
+- **FR-AUDIT-02**: Система должна логировать ключевые действия (вход, создание маршрута, обновление маршрута, отмена маршрута)
 
-## 2. Non-Functional Requirements
+## 2. Нефункциональные требования
 
-- **NFR-01**: API only over HTTPS (HTTP in development)
-- **NFR-02**: Input validation on backend (Pydantic)
-- **NFR-03**: Error handling with unified response format
-- **NFR-04**: Performance - route list must return with pagination (limit/offset)
-- **NFR-05**: Security - passwords only in hash (bcrypt)
-- **NFR-06**: Observability (minimum): structured logs + healthcheck
-- **NFR-07**: Documentation - OpenAPI available (/docs)
+- **NFR-01**: API только через HTTPS (HTTP в режиме разработки)
+- **NFR-02**: Валидация входных данных на backend (Pydantic)
+- **NFR-03**: Обработка ошибок с единым форматом ответа
+- **NFR-04**: Производительность - список маршрутов должен возвращаться с пагинацией (limit/offset)
+- **NFR-05**: Безопасность - пароли только в хешированном виде (bcrypt)
+- **NFR-06**: Наблюдаемость (минимум): структурированные логи + healthcheck
+- **NFR-07**: Документация - OpenAPI доступна (/docs)
 
-## 3. Business Rules
+## 3. Бизнес-правила
 
-- **BR-01**: Route must have minimum 2 stops
-- **BR-02**: Stop sequences must be continuous and unique within route
-- **BR-03**: Cannot transition to 'active' without origin+destination
-- **BR-04**: Cancelled route cannot be edited (except comment by decision)
-- **BR-05**: Viewer cannot create/edit routes
+- **BR-01**: Маршрут должен иметь минимум 2 остановки
+- **BR-02**: Порядковые номера остановок должны быть непрерывными и уникальными в пределах маршрута
+- **BR-03**: Нельзя перейти в статус 'активен' без начальной и конечной остановки
+- **BR-04**: Отменённый маршрут не может быть отредактирован (кроме комментария по решению)
+- **BR-05**: Наблюдатель не может создавать/редактировать маршруты
 
-## 4. Roles and Permissions (RBAC)
+## 4. Роли и права доступа (RBAC)
 
-| Action | Admin | Dispatcher | Viewer |
+| Действие | Администратор | Диспетчер | Наблюдатель |
 |--------|-------|------------|--------|
-| Create/Edit users | ✓ | ✗ | ✗ |
-| Create routes | ✓ | ✓ | ✗ |
-| Edit routes | ✓ | ✓ | ✗ |
-| Cancel routes | ✓ | ✓ | ✗ |
-| View routes | ✓ | ✓ | ✓ |
+| Создание/Редактирование пользователей | ✓ | ✗ | ✗ |
+| Создание маршрутов | ✓ | ✓ | ✗ |
+| Редактирование маршрутов | ✓ | ✓ | ✗ |
+| Отмена маршрутов | ✓ | ✓ | ✗ |
+| Просмотр маршрутов | ✓ | ✓ | ✓ |
 
-## 5. Data Model
+## 5. Модель данных
 
-### Users Table
-| Column | Type | Constraints |
+### Таблица Users (Пользователи)
+| Колонка | Тип | Ограничения |
 |--------|------|-------------|
 | id | UUID | PK |
 | email | VARCHAR(255) | UNIQUE, NOT NULL |
@@ -67,8 +67,8 @@
 | created_at | TIMESTAMP | NOT NULL |
 | updated_at | TIMESTAMP | NOT NULL |
 
-### Routes Table
-| Column | Type | Constraints |
+### Таблица Routes (Маршруты)
+| Колонка | Тип | Ограничения |
 |--------|------|-------------|
 | id | UUID | PK |
 | route_number | VARCHAR(50) | UNIQUE, NOT NULL |
@@ -80,8 +80,8 @@
 | created_at | TIMESTAMP | NOT NULL |
 | updated_at | TIMESTAMP | NOT NULL |
 
-### Route Stops Table
-| Column | Type | Constraints |
+### Таблица Route Stops (Остановки маршрута)
+| Колонка | Тип | Ограничения |
 |--------|------|-------------|
 | id | UUID | PK |
 | route_id | UUID | FK -> routes.id (CASCADE) |
@@ -96,26 +96,26 @@
 | contact_phone | VARCHAR(50) | NULLABLE |
 | created_at | TIMESTAMP | NOT NULL |
 
-## 6. Status Transitions
+## 6. Переходы статусов
 
 ```
-DRAFT -> ACTIVE -> COMPLETED
-  |        |
-  v        v
-CANCELLED CANCELLED
+ЧЕРНОВИК -> АКТИВЕН -> ЗАВЕРШЁН
+     |         |
+     v         v
+ ОТМЕНЁН   ОТМЕНЁН
 ```
 
-- Draft: Initial state, editable
-- Active: In progress, stops cannot be modified
-- Completed: Finished, read-only
-- Cancelled: Cancelled, read-only
+- Черновик: Начальное состояние, редактируемый
+- Активен: В процессе, остановки не могут быть изменены
+- Завершён: Завершён, только для чтения
+- Отменён: Отменён, только для чтения
 
-## 7. Acceptance Criteria
+## 7. Критерии приёмки
 
-1. ✓ User can login
-2. ✓ Admin can create user and assign role
-3. ✓ Dispatcher can create route with minimum 2 stops
-4. ✓ Route is displayed in list and opens in details view
-5. ✓ Filtering/search available by query and status
-6. ✓ Route can be cancelled
-7. ✓ Data persists in PostgreSQL after restart
+1. ✓ Пользователь может войти в систему
+2. ✓ Администратор может создать пользователя и назначить роль
+3. ✓ Диспетчер может создать маршрут минимум с 2 остановками
+4. ✓ Маршрут отображается в списке и открывается в детальном просмотре
+5. ✓ Доступна фильтрация/поиск по запросу и статусу
+6. ✓ Маршрут может быть отменён
+7. ✓ Данные сохраняются в PostgreSQL после перезапуска

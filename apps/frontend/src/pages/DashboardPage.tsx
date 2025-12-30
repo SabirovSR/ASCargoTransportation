@@ -30,13 +30,13 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600">Welcome back, {user?.full_name}</p>
+          <h1 className="text-2xl font-bold text-gray-900">Панель управления</h1>
+          <p className="text-gray-600">Добро пожаловать, {user?.full_name}</p>
         </div>
         {canCreateRoute && (
           <Link to="/routes/new" className="btn-primary">
             <Plus className="h-4 w-4 mr-2" />
-            New Route
+            Новый маршрут
           </Link>
         )}
       </div>
@@ -49,7 +49,7 @@ export default function DashboardPage() {
               <Route className="h-6 w-6 text-primary-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">Total Routes</p>
+              <p className="text-sm font-medium text-gray-500">Всего маршрутов</p>
               <p className="text-2xl font-semibold text-gray-900">{stats.total}</p>
             </div>
           </div>
@@ -61,7 +61,7 @@ export default function DashboardPage() {
               <CheckCircle className="h-6 w-6 text-green-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">Active</p>
+              <p className="text-sm font-medium text-gray-500">Активные</p>
               <p className="text-2xl font-semibold text-gray-900">{stats.active}</p>
             </div>
           </div>
@@ -73,7 +73,7 @@ export default function DashboardPage() {
               <Clock className="h-6 w-6 text-yellow-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">Draft</p>
+              <p className="text-sm font-medium text-gray-500">Черновики</p>
               <p className="text-2xl font-semibold text-gray-900">{stats.draft}</p>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function DashboardPage() {
               <XCircle className="h-6 w-6 text-red-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">Cancelled</p>
+              <p className="text-sm font-medium text-gray-500">Отменённые</p>
               <p className="text-2xl font-semibold text-gray-900">{stats.cancelled}</p>
             </div>
           </div>
@@ -95,23 +95,23 @@ export default function DashboardPage() {
       {/* Recent Routes */}
       <div className="card">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Routes</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Последние маршруты</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Route Number
+                  Номер маршрута
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Title
+                  Название
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
+                  Статус
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Stops
+                  Остановки
                 </th>
               </tr>
             </thead>
@@ -132,14 +132,14 @@ export default function DashboardPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {route.stops.length} stops
+                    {route.stops.length} ост.
                   </td>
                 </tr>
               ))}
               {allRoutes?.items.length === 0 && (
                 <tr>
                   <td colSpan={4} className="px-6 py-8 text-center text-gray-500">
-                    No routes yet. Create your first route!
+                    Пока нет маршрутов. Создайте первый маршрут!
                   </td>
                 </tr>
               )}
@@ -149,7 +149,7 @@ export default function DashboardPage() {
         {(allRoutes?.total || 0) > 5 && (
           <div className="px-6 py-4 border-t border-gray-200">
             <Link to="/routes" className="text-primary-600 hover:text-primary-800 text-sm font-medium">
-              View all routes →
+              Посмотреть все маршруты →
             </Link>
           </div>
         )}

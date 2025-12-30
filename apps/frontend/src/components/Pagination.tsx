@@ -39,22 +39,22 @@ export default function Pagination({ total, limit, offset, onPageChange }: Pagin
           disabled={currentPage === 1}
           className="btn-secondary btn-sm disabled:opacity-50"
         >
-          Previous
+          Назад
         </button>
         <button
           onClick={() => goToPage(currentPage + 1)}
           disabled={currentPage === totalPages}
           className="btn-secondary btn-sm disabled:opacity-50"
         >
-          Next
+          Вперёд
         </button>
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">{offset + 1}</span> to{' '}
-            <span className="font-medium">{Math.min(offset + limit, total)}</span> of{' '}
-            <span className="font-medium">{total}</span> results
+            Показано с <span className="font-medium">{offset + 1}</span> по{' '}
+            <span className="font-medium">{Math.min(offset + limit, total)}</span> из{' '}
+            <span className="font-medium">{total}</span> записей
           </p>
         </div>
         <div>

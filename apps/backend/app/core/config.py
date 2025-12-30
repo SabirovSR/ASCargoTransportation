@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     """Application settings."""
     
     # Application
-    APP_NAME: str = "Freight Transport Management"
+    APP_NAME: str = "АС \"Грузоперевозки\""
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
     

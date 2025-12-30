@@ -1,10 +1,10 @@
-version: '3.8'
+name: ascargo
 
 services:
   # PostgreSQL Database
   db:
     image: postgres:15-alpine
-    container_name: freight_db
+    container_name: ascargo_db
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
@@ -25,7 +25,8 @@ services:
     build:
       context: ../apps/backend
       dockerfile: Dockerfile
-    container_name: freight_backend
+    image: savik175/ascargo-backend:latest
+    container_name: ascargo_backend
     restart: unless-stopped
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/freight_db
@@ -51,7 +52,8 @@ services:
     build:
       context: ../apps/frontend
       dockerfile: Dockerfile
-    container_name: freight_frontend
+    image: savik175/ascargo-frontend:latest
+    container_name: ascargo_frontend
     restart: unless-stopped
     ports:
       - "80:80"
