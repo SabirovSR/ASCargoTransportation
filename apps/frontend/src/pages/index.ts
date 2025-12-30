@@ -1,0 +1,6 @@
+export { default as LoginPage } from './LoginPage'
+export { default as DashboardPage } from './DashboardPage'
+export { default as RoutesPage } from './RoutesPage'
+export { default as RouteDetailPage } from './RouteDetailPage'
+export { default as NewRoutePage } from './NewRoutePage'
+export { default as UsersPage } from './UsersPage'
