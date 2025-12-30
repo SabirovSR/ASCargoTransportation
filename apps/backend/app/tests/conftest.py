@@ -1,6 +1,5 @@
 import pytest
-import asyncio
-from typing import AsyncGenerator, Generator
+from typing import AsyncGenerator
 from uuid import uuid4
 
 from httpx import AsyncClient, ASGITransport
@@ -14,14 +13,6 @@ from app.core.security import get_password_hash, create_access_token
 
 # Use SQLite for testing
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
-
-
-@pytest.fixture(scope="session")
-def event_loop() -> Generator:
-    """Create event loop for session."""
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
 
 
 @pytest.fixture(scope="function")
