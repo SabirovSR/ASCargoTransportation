@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Route, CheckCircle, XCircle, Clock, Plus } from 'lucide-react'
 import { useRoutes } from '../hooks/useRoutes'
 import { useAuthStore } from '../store/auth'
-import { LoadingSpinner } from '../components'
+import { LoadingSpinner, StatusBadge } from '../components'
 
 export default function DashboardPage() {
   const { user } = useAuthStore()
@@ -127,9 +127,7 @@ export default function DashboardPage() {
                     {route.title}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`badge badge-${route.status}`}>
-                      {route.status}
-                    </span>
+                    <StatusBadge status={route.status} />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {route.stops.length} ост.
